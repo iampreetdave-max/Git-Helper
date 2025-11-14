@@ -196,7 +196,7 @@ with st.sidebar:
     st.markdown('<div class="main-header" style="font-size: 2em; text-align: center; margin: 20px 0;">Git-Buddy</div>', unsafe_allow_html=True)
 
     page = st.radio("Navigation:",
-                    ["🏠 Home", "⚡ Features", "🚀 Quick Setup", "❓ FAQ", "📖 Docs"])
+                    ["🏠 Home", "⚡ Features", "🔧 How It Works", "🚀 Quick Setup", "❓ FAQ", "📖 Docs"])
 
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
@@ -440,6 +440,217 @@ elif page == "⚡ Features":
         </div>
         """, unsafe_allow_html=True)
 
+# ===== HOW IT WORKS PAGE =====
+elif page == "🔧 How It Works":
+    st.markdown('<div class="main-header">How It Works</div>', unsafe_allow_html=True)
+    st.markdown('<div class="tagline">Understanding the 8 Scripts & System Architecture</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    <strong>🎯 Complete Transparency:</strong><br>
+    Git-Buddy uses 8 intelligent scripts that work together in a coordinated pipeline. This page explains exactly what each script does and how they interact.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### System Architecture")
+    st.markdown("""
+    When Git-Buddy runs, it follows this execution flow:
+
+    1. **Gather Raw Data** → Run analysis tools (pylint, flake8, bandit, etc.)
+    2. **Aggregate Metrics** → Combine results into health scores
+    3. **Collect History** → Store data for trend analysis
+    4. **Generate Visualizations** → Create charts from historical data
+    5. **Generate Reports** → Create markdown documentation
+    6. **Update Repository** → Commit all results to git
+
+    All of this happens **automatically** in GitHub Actions!
+    """)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown("### The 8 Scripts Explained")
+
+    scripts = [
+        {
+            "num": 1,
+            "name": "analyzer.py",
+            "lines": 721,
+            "icon": "🔍",
+            "purpose": "Core Analysis Engine",
+            "what": "Orchestrates all analysis tools and combines results",
+            "tools": ["pylint", "flake8", "radon", "bandit", "pip-audit", "safety", "pytest-cov"],
+            "output": "Comprehensive analysis report (JSON)",
+            "details": "This is the main engine. It runs 7 different analysis tools, handles errors gracefully, and produces a master report with all metrics."
+        },
+        {
+            "num": 2,
+            "name": "repo_health_metrics.py",
+            "lines": 490,
+            "icon": "📊",
+            "purpose": "Health Score Calculator",
+            "what": "Aggregates metrics into repository health scores",
+            "tools": ["analysis data"],
+            "output": ".github/repo_health_metrics.json (timestamped)",
+            "details": "Takes raw metrics and calculates overall health. Stores historical data for trend analysis. Shows quality, coverage, security, and dependency health."
+        },
+        {
+            "num": 3,
+            "name": "loc_trend_collector.py",
+            "lines": 445,
+            "icon": "📈",
+            "purpose": "Historical LOC Tracker",
+            "what": "Tracks Lines of Code changes over time",
+            "tools": ["git", "language detection"],
+            "output": ".github/loc_history.json (appends daily)",
+            "details": "Counts total lines of code, breakdown by language, and daily changes. Never deletes history—it appends new data each day so you can see growth patterns."
+        },
+        {
+            "num": 4,
+            "name": "loc_trend_visualizer.py",
+            "lines": 470,
+            "icon": "🎨",
+            "purpose": "Chart Generator",
+            "what": "Creates visual charts from historical data",
+            "tools": ["matplotlib", "numpy"],
+            "output": "PNG/SVG graphs (.github/loc_trend.png, etc.)",
+            "details": "Reads historical data and generates beautiful charts. Shows LOC growth, language distribution, and trend lines with linear regression analysis."
+        },
+        {
+            "num": 5,
+            "name": "readme_updater.py",
+            "lines": 439,
+            "icon": "📄",
+            "purpose": "README Autopilot",
+            "what": "Automatically updates README.md with latest metrics",
+            "tools": ["markdown parsing"],
+            "output": "Updated README.md",
+            "details": "Inserts badges and metrics into your README using HTML comment markers. Preserves all existing content, only updates specific sections."
+        },
+        {
+            "num": 6,
+            "name": "repo_health_dashboard.py",
+            "lines": 429,
+            "icon": "📋",
+            "purpose": "Dashboard Generator",
+            "what": "Creates a beautiful health dashboard markdown file",
+            "tools": ["metrics aggregation"],
+            "output": "HEALTH_DASHBOARD.md",
+            "details": "Generates HEALTH_DASHBOARD.md with overall health score, strengths, weaknesses, actionable recommendations, and detailed metrics with context."
+        },
+        {
+            "num": 7,
+            "name": "changelog_generator.py",
+            "lines": 133,
+            "icon": "📝",
+            "purpose": "Release Notes Generator",
+            "what": "Auto-generates CHANGELOG.md from git history",
+            "tools": ["git log parsing"],
+            "output": "CHANGELOG.md",
+            "details": "Parses commit messages, groups by version/type, creates readable release notes. Automatically detects features, bugs, and breaking changes."
+        },
+        {
+            "num": 8,
+            "name": "create_summary.py",
+            "lines": 157,
+            "icon": "📢",
+            "purpose": "GitHub UI Formatter",
+            "what": "Creates formatted summary visible in GitHub Actions",
+            "tools": ["GitHub Actions API"],
+            "output": "GitHub Actions Job Summary",
+            "details": "Formats analysis results for display in GitHub UI. Shows key metrics, pass/fail indicators, links to reports. Visible without leaving GitHub!"
+        }
+    ]
+
+    for script in scripts:
+        with st.expander(f"**{script['num']}. {script['icon']} {script['name']}** ({script['lines']} lines) - {script['purpose']}", expanded=False):
+            col1, col2 = st.columns([1, 1])
+
+            with col1:
+                st.markdown(f"**What it does:**\n{script['what']}")
+                st.markdown(f"**Output:**\n`{script['output']}`")
+
+            with col2:
+                st.markdown(f"**Uses tools:**")
+                for tool in script['tools']:
+                    st.markdown(f"- {tool}")
+
+            st.markdown(f"\n**Details:**\n{script['details']}")
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown("### Data Flow")
+    st.markdown("""
+    ```
+    GitHub Actions Trigger (Daily)
+         ↓
+    analyzer.py 🔍
+    (Run all analysis tools)
+         ↓
+    ├─→ repo_health_metrics.py 📊 (Aggregate scores)
+    ├─→ loc_trend_collector.py 📈 (Collect LOC history)
+    ├─→ changelog_generator.py 📝 (Parse git history)
+    └─→ loc_trend_visualizer.py 🎨 (Create charts)
+         ↓
+    ├─→ repo_health_dashboard.py 📋 (Create dashboard)
+    ├─→ readme_updater.py 📄 (Update README)
+    └─→ create_summary.py 📢 (Format for GitHub UI)
+         ↓
+    git add . && git commit && git push
+         ↓
+    Results stored in your repository ✅
+    ```
+    """)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown("### What Gets Downloaded")
+    st.markdown("""
+    When you download the setup package, you get:
+
+    | File | What it does |
+    |------|-------------|
+    | **daily-analysis.yml** | GitHub Actions workflow that triggers everything |
+    | **requirements.txt** | Python packages needed (pylint, flake8, bandit, etc.) |
+    | **.env.example** | Configuration template (optional) |
+    | **setup.sh** | Bash script for manual setup |
+    | **setup.py** | Python script for auto-setup |
+
+    The **8 scripts above are already in this repository** - the workflow file downloads and runs them!
+
+    > 💡 The key insight: You only need to set up the **workflow file and requirements** in your repository. The 8 scripts are pulled from GitHub when the workflow runs.
+    """)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown("### Key Principles")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        **Automation**
+        - No manual steps required
+        - Runs daily automatically
+        - Zero human intervention
+
+        **Transparency**
+        - Every script is open source
+        - Clear logging of what's happening
+        - Human-readable reports
+        """)
+
+    with col2:
+        st.markdown("""
+        **Privacy**
+        - Everything runs in GitHub Actions
+        - No external APIs or services
+        - Results stored in your repository
+
+        **Simplicity**
+        - No configuration required
+        - Sensible defaults for all settings
+        - Works with any Python project
+        """)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown("### Next Steps")
+    st.info("👉 Ready to set up Git-Buddy? Go to **Quick Setup** tab and download the configuration package!")
+
 # ===== QUICK SETUP PAGE =====
 elif page == "🚀 Quick Setup":
     st.markdown('<div class="main-header">Quick Setup</div>', unsafe_allow_html=True)
@@ -451,6 +662,40 @@ elif page == "🚀 Quick Setup":
     and works with any Python project!
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### Understanding the 8 Scripts")
+
+    st.warning("""
+    **Common Question:** "I see 8 scripts mentioned, but the download only has 5 files. How do I get all 8 scripts?"
+
+    **Answer:** The 8 scripts are already in the Git-Buddy repository. Here's how it works:
+
+    1. **You download 5 setup files** (workflow, requirements, config, setup scripts)
+    2. **The workflow file** (`.github/workflows/daily-analysis.yml`) is your configuration
+    3. **When GitHub Actions runs**, it downloads the 8 scripts from this repository automatically
+    4. **All 8 scripts run together** to analyze your repository
+
+    **The 5 files you download:**
+    - 📋 `.env.example` - Configuration template
+    - 🔄 `daily-analysis.yml` - Triggers the 8 scripts daily
+    - 📦 `requirements.txt` - Dependencies for the 8 scripts
+    - 🚀 `SETUP.sh` - Bash auto-setup helper
+    - 🐍 `setup.py` - Python auto-setup helper
+
+    **The 8 scripts that run automatically:**
+    - 🔍 `analyzer.py` - Main analysis engine
+    - 📊 `repo_health_metrics.py` - Health scoring
+    - 📈 `loc_trend_collector.py` - Historical tracking
+    - 🎨 `loc_trend_visualizer.py` - Chart generation
+    - 📄 `readme_updater.py` - README updates
+    - 📋 `repo_health_dashboard.py` - Dashboard generation
+    - 📝 `changelog_generator.py` - Release notes
+    - 📢 `create_summary.py` - GitHub UI formatting
+
+    Want to understand each script in detail? Check the **"🔧 How It Works"** tab!
+    """)
 
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
