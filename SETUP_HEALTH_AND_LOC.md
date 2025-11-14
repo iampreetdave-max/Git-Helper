@@ -1,6 +1,6 @@
 # 🚀 Setup Guide: Repo Health Dashboard & LOC Trends
 
-This guide will help you integrate the **Repository Health Dashboard** and **Lines of Code Trend Graphs** into your Git-Helper project.
+This guide will help you integrate the **Repository Health Dashboard** and **Lines of Code Trend Graphs** into your Git-Buddy project.
 
 ## 📋 Table of Contents
 
@@ -475,4 +475,4 @@ Just sit back and watch your repository health improve! 🚀
 
 ---
 
-**Made with ❤️ for Git-Helper**
+**Made with ❤️ for Git-Buddy**

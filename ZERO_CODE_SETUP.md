@@ -1,6 +1,6 @@
 # Zero-Code Setup Guide
 
-Get Git-Helper running with just a few simple steps - no code editing required!
+Get Git-Buddy running with just a few simple steps - no code editing required!
 
 ## Option 1: GitHub Actions (Recommended - Fully Automatic)
 
@@ -35,7 +35,7 @@ Want to run analysis on your machine? Follow these steps:
 ### Step 1: Clone & Enter Directory
 ```bash
 git clone <repository-url>
-cd Git-Helper
+cd Git-Buddy
 ```
 
 ### Step 2: Create Virtual Environment (Optional but Recommended)

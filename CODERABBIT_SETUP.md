@@ -343,13 +343,13 @@ review:
 
 ---
 
-## 🔗 Integration with Git-Helper
+## 🔗 Integration with Git-Buddy
 
-CodeRabbit works alongside Git-Helper:
+CodeRabbit works alongside Git-Buddy:
 
 | Tool | Purpose | When It Runs |
 |------|---------|--------------|
-| **Git-Helper** | Repository health analysis | Daily (scheduled) |
+| **Git-Buddy** | Repository health analysis | Daily (scheduled) |
 | **CodeRabbit** | PR code review | On every PR |
 | **Both Together** | Complete code quality | Always monitoring |
 
@@ -361,9 +361,9 @@ CodeRabbit works alongside Git-Helper:
 - Visit [CodeRabbit Docs](https://coderabbit.ai/docs)
 - Check [CodeRabbit GitHub](https://github.com/coderabbit)
 
-### Git-Helper Issues
-- Check [Git-Helper README](./README.md)
-- Report issues on [GitHub Issues](https://github.com/iampreetdave-max/Git-Helper/issues)
+### Git-Buddy Issues
+- Check [Git-Buddy README](./README.md)
+- Report issues on [GitHub Issues](https://github.com/iampreetdave-max/Git-Buddy/issues)
 
 ---
 
@@ -377,4 +377,4 @@ CodeRabbit works alongside Git-Helper:
 
 ---
 
-Made with ❤️ by the Git-Helper team
+Made with ❤️ by the Git-Buddy team
