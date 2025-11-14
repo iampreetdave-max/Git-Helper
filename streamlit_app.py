@@ -6,117 +6,467 @@ from pathlib import Path
 
 # Page configuration
 st.set_page_config(
-    page_title="Git-Buddy Setup Wizard",
-    page_icon="🔧",
+    page_title="Git-Buddy - Automated Repository Analysis",
+    page_icon="🤖",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# Monochrome styling
+# Elegant styling with better colors and layout
 st.markdown("""
     <style>
-        .main-header {
-            font-size: 3em;
-            font-weight: bold;
-            color: #ff0000;
-            margin-bottom: 20px;
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --text: #2c3e50;
         }
+
+        * {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .main-header {
+            font-size: 3.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c3e50 0%, #e74c3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
         .feature-card {
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .capability-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85em;
+            margin: 8px 8px 8px 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
             padding: 20px;
             border-radius: 10px;
-            margin: 10px 0;
-            border-left: 4px solid #000000;
+            text-align: center;
+            border: 1px solid #e0e0e0;
         }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #e74c3c;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 8px;
+        }
+
         .step-badge {
-            background: #333333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
             display: inline-block;
-            margin: 10px 0;
+            margin: 12px 0;
+            font-size: 0.9em;
         }
+
+        .code-block {
+            background: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
         .footer {
             text-align: center;
-            color: #666666;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #cccccc;
-            font-size: 0.85em;
+            color: #999;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+
+        .footer a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 40px 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .complexity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
     </style>
     """, unsafe_allow_html=True)
 
 # Sidebar navigation
 with st.sidebar:
-    st.title("Git-Buddy")
-    page = st.radio("Select a page:",
-                    ["🏠 Home", "🚀 Quick Setup", "❓ FAQ"])
+    st.markdown('<div class="main-header" style="font-size: 2em; text-align: center; margin: 20px 0;">Git-Buddy</div>', unsafe_allow_html=True)
 
-    st.divider()
-    st.info("💡 **Tip:** Click 'Quick Setup' to download all files needed!")
+    page = st.radio("Navigation:",
+                    ["🏠 Home", "⚡ Features", "🚀 Quick Setup", "❓ FAQ", "📖 Docs"])
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    **🎯 One-Click Integration**
+
+    Git-Buddy works with **any repository** - no setup required!
+    """)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Scripts", "8", "+700 Lines")
+    with col2:
+        st.metric("Analyses", "7", "Automated")
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="text-align: center; font-size: 0.85em; color: #666;">
+        <strong>Made with ❤️ for developers</strong><br>
+        <a href="https://github.com/iampreetdave-max/Git-Helper" target="_blank">View on GitHub</a>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ===== HOME PAGE =====
 if page == "🏠 Home":
     st.markdown('<div class="main-header">Git-Buddy</div>', unsafe_allow_html=True)
-    st.markdown("### Automated Repository Health Monitoring for Everyone")
+    st.markdown('<div class="tagline">Enterprise-Grade Repository Analysis. Zero Configuration.</div>', unsafe_allow_html=True)
+
+    # Hero stats
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.markdown("""
+        <div class="stat-card">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Intelligent Scripts</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown("""
+        <div class="stat-card">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Automated Analyses</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col3:
+        st.markdown("""
+        <div class="stat-card">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Config Required</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col4:
+        st.markdown("""
+        <div class="stat-card">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Repositories</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
     st.markdown("""
-    **Git-Buddy** is an intelligent GitHub Actions automation that monitors your repository's health,
-    analyzes code quality, detects security issues, and tracks progress over time—all **without any coding required**!
+    <div class="info-box">
+    <strong>🚀 What is Git-Buddy?</strong><br><br>
+    Git-Buddy is an intelligent repository monitoring system that automatically analyzes your code quality,
+    detects security vulnerabilities, tracks metrics over time, and generates comprehensive reports—all running
+    safely within your GitHub Actions environment. <strong>No external APIs. No configuration needed.</strong>
+    </div>
+    """, unsafe_allow_html=True)
 
-    Perfect for:
-    - 👨‍💻 Beginner developers who want code insights
-    - 🏢 Teams tracking repository health
-    - 🔒 Projects requiring security analysis
-    - 📊 Organizations monitoring code quality trends
-
-    **Just download the files, paste them in your repo, and everything works automatically!**
-    """)
-
-    st.divider()
-
-    # Key Features
-    st.markdown("### Features")
+    st.markdown("### Perfect For")
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("""
-        **📊 Code Quality Analysis**
+        <div class="feature-card">
+            <div class="feature-icon">👨‍💻</div>
+            <div class="feature-title">Individual Developers</div>
+            <div class="feature-desc">Track your code quality metrics and catch issues early before they become problems.</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        Detects complexity, style issues, and potential bugs
-
-        **🔐 Security Scanning**
-
-        Identifies vulnerabilities and security risks
-        """)
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Security-First Teams</div>
+            <div class="feature-desc">Automated vulnerability scanning with Bandit, Pip-Audit, and Safety for complete coverage.</div>
+        </div>
+        """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("""
-        **📈 Trend Tracking**
+        <div class="feature-card">
+            <div class="feature-icon">🏢</div>
+            <div class="feature-title">Teams & Organizations</div>
+            <div class="feature-desc">Monitor repository health across all projects with automated dashboards and trend tracking.</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        Monitors metrics over time
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Data-Driven Management</div>
+            <div class="feature-desc">Generate actionable insights from historical metrics and identify patterns in code evolution.</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        **📋 Auto Changelog**
-
-        Generates changelogs from git history
-        """)
-
-    st.divider()
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
     # Call to action
-    st.markdown("### Get Started")
-    if st.button("📥 Download Setup Files", use_container_width=True, key="home_setup"):
-        st.switch_page("streamlit_app.py")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("⚡ Get Started Now - Quick Setup", use_container_width=True, key="home_setup"):
+            st.switch_page("streamlit_app.py")
+
+# ===== FEATURES PAGE =====
+elif page == "⚡ Features":
+    st.markdown('<div class="main-header">Powerful Capabilities</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    Git-Buddy comes equipped with intelligent analysis tools that work together to give you complete
+    repository insights. Every feature runs automatically—no configuration required.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### Core Analysis Capabilities")
+
+    features = [
+        {
+            "icon": "📊",
+            "title": "Code Quality Analysis",
+            "desc": "Analyze cyclomatic complexity, maintainability index, and code patterns using Radon and Pylint",
+            "details": "Identifies overly complex functions, suggests refactoring opportunities, and tracks metrics over time."
+        },
+        {
+            "icon": "🧪",
+            "title": "Test Coverage Detection",
+            "desc": "Automatically detects and runs tests with comprehensive coverage reporting using pytest",
+            "details": "Measures code coverage percentage, identifies untested code paths, and tracks test growth."
+        },
+        {
+            "icon": "🔐",
+            "title": "Security Vulnerability Scanning",
+            "desc": "Multi-layered security scanning with Bandit, Pip-Audit, and Safety",
+            "details": "Detects Python vulnerabilities, insecure code patterns, outdated dependencies with known CVEs."
+        },
+        {
+            "icon": "📦",
+            "title": "Dependency Health Checks",
+            "desc": "Monitor Python and Node.js package health and identify outdated packages",
+            "details": "Tracks dependency versions, detects security vulnerabilities in libraries, suggests updates."
+        },
+        {
+            "icon": "📝",
+            "title": "Automated Changelog Generation",
+            "desc": "Generate comprehensive CHANGELOG.md from your git commit history",
+            "details": "Intelligently categorizes commits, creates version history, documents breaking changes."
+        },
+        {
+            "icon": "📈",
+            "title": "Trend Tracking & Analytics",
+            "desc": "Track code metrics and repository health over time with historical analysis",
+            "details": "Maintains detailed historical data, visualizes trends, identifies patterns in code evolution."
+        },
+        {
+            "icon": "🤖",
+            "title": "Smart Self-Healing",
+            "desc": "Automatically generates missing configuration files and maintains state",
+            "details": "Creates missing files on first run, maintains analysis history, recovers from failures gracefully."
+        },
+        {
+            "icon": "📊",
+            "title": "Repository Health Dashboard",
+            "desc": "Auto-generates comprehensive health report with metrics and insights",
+            "details": "Creates beautiful markdown dashboards, tracks active contributors, shows commit activity."
+        }
+    ]
+
+    for i in range(0, len(features), 2):
+        col1, col2 = st.columns(2)
+
+        with col1:
+            f = features[i]
+            st.markdown(f"""
+            <div class="feature-card">
+                <div class="feature-icon">{f['icon']}</div>
+                <div class="feature-title">{f['title']}</div>
+                <div class="feature-desc"><strong>{f['desc']}</strong></div>
+                <div style="margin-top: 12px; color: #888; font-size: 0.9em; line-height: 1.5;">
+                    {f['details']}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        if i + 1 < len(features):
+            with col2:
+                f = features[i + 1]
+                st.markdown(f"""
+                <div class="feature-card">
+                    <div class="feature-icon">{f['icon']}</div>
+                    <div class="feature-title">{f['title']}</div>
+                    <div class="feature-desc"><strong>{f['desc']}</strong></div>
+                    <div style="margin-top: 12px; color: #888; font-size: 0.9em; line-height: 1.5;">
+                        {f['details']}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### Advanced Features")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-title">Zero Configuration</div>
+            <div class="feature-desc">Works out-of-the-box with sensible defaults</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <div class="feature-title">Daily Automation</div>
+            <div class="feature-desc">Runs automatically via GitHub Actions</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-title">Repository Agnostic</div>
+            <div class="feature-desc">Works with any Python repository</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ===== QUICK SETUP PAGE =====
 elif page == "🚀 Quick Setup":
-    st.title("Quick Setup")
-    st.markdown("Download all required files and get started in minutes—no coding required!")
+    st.markdown('<div class="main-header">Quick Setup</div>', unsafe_allow_html=True)
+    st.markdown('<div class="tagline">Get Git-Buddy running in 5 minutes</div>', unsafe_allow_html=True)
 
-    st.divider()
+    st.markdown("""
+    <div class="success-box">
+    <strong>✅ Download all files and extract to your repository.</strong> Git-Buddy is fully self-contained
+    and works with any Python project!
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### 3 Easy Steps")
+
+    st.markdown('<span class="step-badge">Step 1</span>', unsafe_allow_html=True)
+    st.write("**Download** - Click the button below to get all setup files")
+
+    st.markdown('<span class="step-badge">Step 2</span>', unsafe_allow_html=True)
+    st.write("**Extract** - Unzip the files into your repository root")
+
+    st.markdown('<span class="step-badge">Step 3</span>', unsafe_allow_html=True)
+    st.write("**Commit** - Push the files and enable GitHub Actions")
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
     # Create downloadable files
     env_example = """# Git-Buddy Configuration File
@@ -315,93 +665,249 @@ if __name__ == '__main__':
         zip_buffer.seek(0)
         return zip_buffer.getvalue()
 
-    st.markdown("### Download All Files")
-    st.markdown("""
-    Click the button below to download all 5 required files:
-    1. `.env.example` - Configuration file
-    2. `daily-analysis.yml` - GitHub workflow
-    3. `requirements.txt` - Python dependencies
-    4. `SETUP.sh` - Bash setup script
-    5. `setup.py` - Python setup script
-    """)
+    st.markdown("### Download Setup Package")
 
     col1, col2, col3 = st.columns([1, 2, 1])
 
     with col2:
         st.download_button(
-            label="📥 Download All Files (ZIP)",
+            label="📦 Download Git-Buddy Setup Package",
             data=create_download_package(),
             file_name="git-buddy-setup.zip",
             mime="application/zip",
             use_container_width=True
         )
 
-    st.divider()
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-    st.markdown("### Installation Steps")
+    st.markdown("### What's Included")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <div class="feature-title">.env.example</div>
+            <div class="feature-desc">Configuration template with all available options</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-title">requirements.txt</div>
+            <div class="feature-desc">All Python dependencies pinned to stable versions</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <div class="feature-title">daily-analysis.yml</div>
+            <div class="feature-desc">GitHub Actions workflow configured for daily runs</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-title">Setup Scripts</div>
+            <div class="feature-desc">Auto-install scripts for bash and Python</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### Quick Reference")
+
     st.markdown("""
-    1. **Download** the ZIP file using the button above
-    2. **Extract** the files to your repository root
-    3. **Commit** the files: `git add . && git commit -m "Add Git-Buddy"`
-    4. **Push** to your repository: `git push`
-    5. **Enable** workflows: Go to Settings → Actions → General
-    6. **Run** the workflow: Go to Actions tab and trigger manually
+    <div class="code-block">
+    # After extracting the ZIP file:
 
-    **That's it!** 🎉 Git-Buddy will now analyze your repository daily at 2 AM UTC.
-    """)
+    git add .
+    git commit -m "Add Git-Buddy repository analysis"
+    git push
 
-    st.success("✅ Everything is ready. Download the files and follow the steps above.")
+    # Then enable workflows in GitHub:
+    # Settings → Actions → General → Allow all actions
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="success-box">
+    <strong>✅ Done!</strong> Your repository is now monitored. Git-Buddy runs daily at 2 AM UTC and
+    generates comprehensive analysis reports automatically.
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ===== FAQ PAGE =====
 elif page == "❓ FAQ":
-    st.title("Frequently Asked Questions")
+    st.markdown('<div class="main-header">Common Questions</div>', unsafe_allow_html=True)
 
     faqs = [
-        ("Can I use this with my existing repository?",
-         """Yes! Git-Buddy works with any GitHub repository. Just add the files and enable the workflow.
-         It won't interfere with existing CI/CD pipelines."""),
-
-        ("Is it really no-code?",
-         """Absolutely! Just download files, extract them to your repo, and enable the GitHub Actions workflow.
-         No coding or configuration required. It works out of the box!"""),
-
-        ("How often does it run?",
-         """By default, Git-Buddy runs daily at 2 AM UTC. You can also trigger it manually anytime from
-         the GitHub Actions tab in your repository."""),
-
-        ("Will it work with private repositories?",
-         """Yes, it works perfectly with private repos! The analysis happens in your GitHub Actions,
-         so all data stays within your organization."""),
-
-        ("Can I customize the analysis?",
-         """Yes! Edit the `.env.example` file and set flags to enable/disable specific analyses
-         and set custom thresholds for code quality and complexity."""),
-
-        ("Does Git-Buddy need special API keys?",
-         """No! Git-Buddy works without any API keys or external dependencies. All analysis is done
-         locally in your GitHub Actions. It's completely self-contained."""),
-
-        ("Can I disable certain analyses?",
-         """Yes! Edit the `.env` file and set `ENABLE_CODE_QUALITY=false` (or other analyses) to skip them."""),
-
-        ("Where are the results stored?",
-         """All results are committed back to your repository as files (HEALTH_DASHBOARD.md, analysis_results.json, etc.).
-         No external storage is used—everything stays in your repo!"""),
+        {
+            "q": "Can I use this with my existing repository?",
+            "a": "Yes! Git-Buddy works seamlessly with any GitHub repository. Just download the files, extract them to your repo root, and enable the workflow. It's designed not to interfere with existing CI/CD pipelines or workflows."
+        },
+        {
+            "q": "Is it really zero-code setup?",
+            "a": "Absolutely! Download files, extract them to your repo, and enable the GitHub Actions workflow. No code editing, no configuration, no API keys needed. It works perfectly out of the box with sensible defaults."
+        },
+        {
+            "q": "How often does analysis run?",
+            "a": "By default, Git-Buddy runs daily at 2 AM UTC. You can customize the schedule by editing the cron expression in `.github/workflows/daily-analysis.yml`. You can also trigger manual runs anytime from the GitHub Actions tab."
+        },
+        {
+            "q": "Works with private repositories?",
+            "a": "Absolutely! All analysis happens securely within your GitHub Actions environment. Your code never leaves your repository—all data stays private and under your control."
+        },
+        {
+            "q": "Can I customize what gets analyzed?",
+            "a": "Yes! Copy `.env.example` to `.env` and adjust settings. You can enable/disable specific analyses (code quality, security, complexity), set thresholds, and exclude directories."
+        },
+        {
+            "q": "Do I need API keys or external services?",
+            "a": "No! Git-Buddy is completely self-contained. All analysis tools run locally in GitHub Actions. We don't use external APIs, cloud services, or require any authentication tokens."
+        },
+        {
+            "q": "Can I disable specific analyses?",
+            "a": "Yes! Each analysis component can be independently controlled via environment variables in `.env`. Turn off what you don't need—Git-Buddy only runs what you enable."
+        },
+        {
+            "q": "Where are analysis results stored?",
+            "a": "All results are automatically committed back to your repository as markdown files and JSON data. No external storage needed—everything stays in your Git history and repository."
+        },
+        {
+            "q": "How do I see the analysis results?",
+            "a": "Results are committed to your repository in multiple formats: HEALTH_DASHBOARD.md (human-readable), analysis_results.json (raw data), CHANGELOG.md (git history), and metrics tracked in .github/."
+        },
+        {
+            "q": "What Python versions are supported?",
+            "a": "Git-Buddy is tested with Python 3.11+. The workflow uses Python 3.11 by default, but you can modify the workflow file to use different versions if needed."
+        },
     ]
 
-    for question, answer in faqs:
-        with st.expander(question):
-            st.markdown(answer)
+    for faq in faqs:
+        with st.expander(f"**{faq['q']}**"):
+            st.write(faq['a'])
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    <strong>Still have questions?</strong> Check the GitHub repository or open an issue!
+    </div>
+    """, unsafe_allow_html=True)
+
+# ===== DOCS PAGE =====
+elif page == "📖 Docs":
+    st.markdown('<div class="main-header">Documentation</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    Complete guides and documentation for Git-Buddy deployment and usage.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### Getting Started")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">Quick Start</div>
+            <div class="feature-desc">Get running in 5 minutes</div>
+            <div style="margin-top: 12px;">
+                1. Download the ZIP<br>
+                2. Extract to repo<br>
+                3. Commit and push<br>
+                4. Enable workflows
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🐳</div>
+            <div class="feature-title">Docker Setup</div>
+            <div class="feature-desc">Run in containerized environment</div>
+            <div style="margin-top: 12px;">
+                Perfect for isolated testing and CI/CD integration with Docker containers.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-title">Configuration Guide</div>
+            <div class="feature-desc">Customize analysis parameters</div>
+            <div style="margin-top: 12px;">
+                Learn how to configure thresholds, enable/disable analyses, and customize the workflow schedule.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <div class="feature-title">Advanced Features</div>
+            <div class="feature-desc">Explore powerful capabilities</div>
+            <div style="margin-top: 12px;">
+                Learn about trend tracking, historical analysis, self-healing capabilities, and custom reporting.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### Core Analysis Tools")
+
+    tools = [
+        ("Code Quality", "Radon + Pylint", "Analyzes complexity, maintainability, and code patterns"),
+        ("Testing", "Pytest + Coverage", "Measures test coverage and identifies untested code"),
+        ("Security", "Bandit + Safety + Pip-Audit", "Detects vulnerabilities and security risks"),
+        ("Changelog", "Git History", "Auto-generates changelog from commits"),
+        ("Trends", "Historical Data", "Tracks metrics over time with analytics"),
+        ("Health", "Multi-Factor", "Comprehensive repository health dashboard"),
+    ]
+
+    for tool, tech, desc in tools:
+        st.markdown(f"""
+        <div class="feature-card">
+            <div class="feature-title">{tool}</div>
+            <div style="color: #e74c3c; font-weight: 600; margin-bottom: 8px;">{tech}</div>
+            <div class="feature-desc">{desc}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### Resources")
+
+    st.markdown("""
+    - 📄 [View Full README](https://github.com/iampreetdave-max/Git-Helper)
+    - 🐛 [Report Issues](https://github.com/iampreetdave-max/Git-Helper/issues)
+    - ⭐ [Star on GitHub](https://github.com/iampreetdave-max/Git-Helper)
+    """)
 
 # Footer with credits
-st.divider()
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="footer">
-    <strong>Git-Buddy</strong> - Automated Repository Analysis<br>
-    <small>
-    Innovated by <strong>Preet</strong> | Powered by Claude and Git-Bot<br>
-    <a href="https://github.com/iampreetdave-max/Git-Buddy">GitHub Repository</a>
-    </small>
+    <strong>🤖 Git-Buddy</strong> — Enterprise-grade repository analysis, zero configuration<br><br>
+    <strong>Made with ❤️ for developers by developers</strong><br>
+    Innovated by <a href="https://github.com/iampreetdave-max">Preet Dave</a> | Powered by Claude AI<br><br>
+    <strong>Connect:</strong><br>
+    <a href="https://github.com/iampreetdave-max/Git-Helper">⭐ Star on GitHub</a> •
+    <a href="https://github.com/iampreetdave-max/Git-Helper/issues">Report Issues</a> •
+    <a href="https://github.com/iampreetdave-max/Git-Helper/discussions">Discussions</a><br><br>
+    <small>Git-Buddy is open source and free for all. Made for the community, by the community.</small>
 </div>
 """, unsafe_allow_html=True)
