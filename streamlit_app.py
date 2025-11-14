@@ -18,7 +18,7 @@ st.markdown("""
         .main-header {
             font-size: 3em;
             font-weight: bold;
-            color: #000000;
+            color: #ff0000;
             margin-bottom: 20px;
         }
         .feature-card {
