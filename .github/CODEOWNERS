@@ -1,0 +1,30 @@
+# Git-Buddy CODEOWNERS
+# This file defines code ownership and review requirements
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything
+*                                   @iampreetdave-max
+
+# Core analysis scripts
+/github/scripts/analyzer.py         @iampreetdave-max
+/github/scripts/repo_health*.py     @iampreetdave-max
+/github/scripts/changelog*.py       @iampreetdave-max
+/github/scripts/loc_trend*.py       @iampreetdave-max
+
+# Workflows and configuration
+/.github/workflows/                 @iampreetdave-max
+/.coderabbit.yaml                   @iampreetdave-max
+/.env.example                       @iampreetdave-max
+/requirements.txt                   @iampreetdave-max
+
+# UI and user-facing components
+/streamlit_app.py                   @iampreetdave-max
+
+# Documentation
+/*.md                               @iampreetdave-max
+/docs/                              @iampreetdave-max
+
+# Configuration
+/.streamlit/                        @iampreetdave-max
+/.devcontainer/                     @iampreetdave-max
+/.gitignore                         @iampreetdave-max
