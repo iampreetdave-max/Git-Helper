@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-11-14T10:53:55.395263",
+  "code_coverage": {
+    "percentage": 0.0,
+    "lines_covered": 0,
+    "lines_total": 0,
+    "status": "unknown"
+  },
+  "lint_score": {
+    "overall_score": 0.0,
+    "pylint_score": null,
+    "flake8_issues": 0,
+    "total_issues": 0,
+    "status": "unknown"
+  },
+  "active_contributors": {
+    "count": 3,
+    "contributors": [
+      {
+        "name": "Claude",
+        "commits": 3
+      },
+      {
+        "name": "iampreetdave-max",
+        "commits": 2
+      },
+      {
+        "name": "Preet Dave",
+        "commits": 1
+      }
+    ],
+    "top_contributor": "Claude"
+  },
+  "commit_frequency": {
+    "total_commits": 6,
+    "commits_per_day": 0.2,
+    "days_analyzed": 30,
+    "most_active_day": {
+      "date": "2025-11-14",
+      "commits": 4
+    }
+  },
+  "top_modified_files": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "modifications": 1
+      },
+      {
+        "path": "README.md",
+        "modifications": 1
+      }
+    ],
+    "total_analyzed": 2
+  },
+  "error_hotspots": {
+    "hotspots": [],
+    "total_issues": 0
+  }
+}
