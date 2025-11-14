@@ -13,6 +13,19 @@
 
 **Git-Buddy** is an intelligent, fully-automated repository monitoring system that continuously analyzes your code quality, detects security vulnerabilities, tracks metrics over time, and generates comprehensive reports—**all without requiring any configuration or external services**.
 
+### 📚 Documentation Guide
+We believe in **complete transparency**. Choose your learning path:
+
+| Document | For Whom | Purpose |
+|----------|----------|---------|
+| **[ARCHITECTURE.md](ARCHITECTURE.md)** | Technical deep-dive seekers | Comprehensive system design, all 8 scripts explained, data flow diagrams |
+| **[README.md](README.md)** (this file) | Quick starters | Feature overview, installation, basic usage |
+| **[SETUP_HEALTH_AND_LOC.md](SETUP_HEALTH_AND_LOC.md)** | Setup helpers | Step-by-step configuration instructions |
+| **[STREAMLIT_SETUP.md](STREAMLIT_SETUP.md)** | UI users | How to use the interactive setup wizard |
+| **Streamlit App** | Visual learners | Click "🚀 Quick Setup" tab for interactive guide |
+
+> **New to Git-Buddy?** Start with [ARCHITECTURE.md](ARCHITECTURE.md) to understand what it does, then use the Streamlit app to set it up.
+
 Perfect for:
 - 👨‍💻 **Individual developers** tracking code quality metrics
 - 🏢 **Teams & organizations** monitoring repository health across projects
@@ -115,16 +128,20 @@ Intelligent automation and error recovery:
 
 ### 8 Intelligent Scripts (4,000+ Lines of Code)
 
+> 🔍 **Want detailed explanations of what each script does?** See [ARCHITECTURE.md - The 8 Scripts Section](ARCHITECTURE.md#-the-8-scripts-what-each-does)
+
 | Script | Lines | Purpose |
 |--------|-------|---------|
-| **analyzer.py** | 721 | Core analysis engine with multi-tool integration |
-| **repo_health_metrics.py** | 490 | Repository health calculation and scoring |
-| **loc_trend_visualizer.py** | 470 | Lines of code visualization and trending |
-| **loc_trend_collector.py** | 445 | Historical LOC data collection |
-| **readme_updater.py** | 439 | Automatic README metrics injection |
-| **repo_health_dashboard.py** | 429 | Health dashboard markdown generation |
-| **changelog_generator.py** | 133 | Git history to changelog conversion |
-| **create_summary.py** | 157 | GitHub Actions summary creation |
+| **analyzer.py** | 721 | Core engine: Runs pylint, flake8, radon, bandit, pytest-cov for comprehensive analysis |
+| **repo_health_metrics.py** | 490 | Aggregates all metrics into health score with quality, coverage, security stats |
+| **loc_trend_visualizer.py** | 470 | Creates PNG/SVG charts showing code growth over time with trends |
+| **loc_trend_collector.py** | 445 | Collects historical LOC data, tracks language breakdown daily |
+| **readme_updater.py** | 439 | Auto-updates README.md with latest badges, scores, and metrics |
+| **repo_health_dashboard.py** | 429 | Generates HEALTH_DASHBOARD.md with strengths, weaknesses, recommendations |
+| **changelog_generator.py** | 133 | Creates CHANGELOG.md from git commits automatically |
+| **create_summary.py** | 157 | Formats results for GitHub Actions UI with pass/fail indicators |
+
+**All scripts are open source and designed to be transparent about what they do.**
 
 ### Dependencies (Carefully Curated)
 - **Code Analysis**: Radon, Pylint, Flake8
