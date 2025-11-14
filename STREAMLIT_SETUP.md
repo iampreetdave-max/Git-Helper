@@ -1,6 +1,6 @@
 # 🎨 Streamlit Setup Guide
 
-Welcome to the Git-Helper web interface! This guide helps you set up and run the interactive Streamlit dashboard.
+Welcome to the Git-Buddy web interface! This guide helps you set up and run the interactive Streamlit dashboard.
 
 ## 📋 Prerequisites
 
@@ -36,19 +36,19 @@ Then visit: `http://localhost:8501`
 ## 🗺️ App Navigation
 
 ### 🏠 Home Page
-- **What it is**: Overview of Git-Helper
+- **What it is**: Overview of Git-Buddy
 - **What you'll see**: Features, benefits, and call-to-action buttons
 - **Good for**: Understanding the project at a glance
 
 ### 🚀 Quick Setup
 - **What it is**: Step-by-step installation guide
 - **What you'll see**: File downloads, installation instructions, checklist
-- **Good for**: Setting up Git-Helper in your repository
+- **Good for**: Setting up Git-Buddy in your repository
 
 ### 📖 How It Works
-- **What it is**: Deep dive into Git-Helper architecture
+- **What it is**: Deep dive into Git-Buddy architecture
 - **What you'll see**: Pipeline diagram, analysis details, generated files
-- **Good for**: Understanding how Git-Helper analyzes your repo
+- **Good for**: Understanding how Git-Buddy analyzes your repo
 
 ### ❓ FAQ
 - **What it is**: Common questions and answers
@@ -58,7 +58,7 @@ Then visit: `http://localhost:8501`
 ### ⚙️ Advanced
 - **What it is**: Configuration reference
 - **What you'll see**: Environment variables, custom configs, secrets setup
-- **Good for**: Fine-tuning Git-Helper for your needs
+- **Good for**: Fine-tuning Git-Buddy for your needs
 
 ---
 
@@ -101,7 +101,7 @@ STREAMLIT_SERVER_HEADLESS=true
    - `daily-analysis.yml` → `.github/workflows/`
 
 ### Checking Status
-- The app shows current Git-Helper version
+- The app shows current Git-Buddy version
 - Check GitHub repository link for latest updates
 - All features work offline (no internet required)
 
@@ -178,7 +178,7 @@ git push heroku main
 
 | Feature | Description | Use Case |
 |---------|-------------|----------|
-| **Home** | Project overview | Learn what Git-Helper does |
+| **Home** | Project overview | Learn what Git-Buddy does |
 | **Quick Setup** | Guided installation | New users setting up the tool |
 | **How It Works** | Technical architecture | Understanding the pipeline |
 | **FAQ** | Q&A section | Quick answers |
@@ -186,11 +186,11 @@ git push heroku main
 
 ---
 
-## 🔗 Integration with Git-Helper
+## 🔗 Integration with Git-Buddy
 
-The Streamlit app complements the core Git-Helper tool:
+The Streamlit app complements the core Git-Buddy tool:
 
-- **Git-Helper Scripts** → Analyze your repository
+- **Git-Buddy Scripts** → Analyze your repository
 - **Streamlit App** → Guide users through setup
 - **GitHub Actions** → Automate daily analysis
 - **CodeRabbit** → Review code on pull requests
@@ -215,7 +215,7 @@ The Streamlit app complements the core Git-Helper tool:
 ## 🤝 Contributing
 
 Found an issue with the Streamlit app?
-1. Check the [GitHub Issues](https://github.com/iampreetdave-max/Git-Helper/issues)
+1. Check the [GitHub Issues](https://github.com/iampreetdave-max/Git-Buddy/issues)
 2. Create a new issue if not reported
 3. Submit a pull request with improvements
 
@@ -223,7 +223,7 @@ Found an issue with the Streamlit app?
 
 ## 📞 Support
 
-- **Documentation**: Check README.md for general Git-Helper docs
+- **Documentation**: Check README.md for general Git-Buddy docs
 - **Issues**: Report problems on GitHub
 - **Discussions**: Ask questions in GitHub Discussions
 
@@ -235,4 +235,4 @@ This project is licensed under the MIT License. See LICENSE file for details.
 
 ---
 
-Made with ❤️ by the Git-Helper team
+Made with ❤️ by the Git-Buddy team
