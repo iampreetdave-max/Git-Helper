@@ -60,18 +60,24 @@ jobs:
         continue-on-error: true
         run: |
           echo "=== Installing Analysis Tools ===" > install.log
-          
+
           # Upgrade pip first
           pip install --upgrade pip 2>&1 | tee -a install.log
-          
+
           # Install Python analysis tools
           pip install pylint flake8 bandit radon pytest pytest-cov pip-audit safety 2>&1 | tee -a install.log || echo "Warning: Some Python tools failed"
-          
+
+          # Install visualization tools
+          pip install matplotlib 2>&1 | tee -a install.log || echo "Warning: matplotlib installation failed"
+
+          # Install LOC counting tool (optional but recommended)
+          sudo apt-get update && sudo apt-get install -y cloc 2>&1 | tee -a install.log || echo "Warning: cloc installation failed"
+
           # Install Node.js tools if npm is available
           if command -v npm &> /dev/null; then
             npm install -g jshint markdownlint-cli 2>&1 | tee -a install.log || echo "Warning: Some Node tools failed"
           fi
-          
+
           echo "Installation complete"
       
       # ========================================
@@ -98,16 +104,43 @@ jobs:
         continue-on-error: true
         run: |
           python .github/scripts/readme_updater.py
-      
+
       # ========================================
-      # STEP 7: Commit and Push Changes
+      # STEP 7: Generate Repo Health Dashboard
+      # ========================================
+      - name: Generate repo health dashboard
+        continue-on-error: true
+        run: |
+          python .github/scripts/repo_health_metrics.py
+          python .github/scripts/repo_health_dashboard.py --inject-readme
+
+      # ========================================
+      # STEP 8: Collect LOC Trends
+      # ========================================
+      - name: Collect LOC trends
+        continue-on-error: true
+        run: |
+          python .github/scripts/loc_trend_collector.py
+
+      # ========================================
+      # STEP 9: Generate LOC Visualizations
+      # ========================================
+      - name: Generate LOC visualizations
+        continue-on-error: true
+        run: |
+          python .github/scripts/loc_trend_visualizer.py --format png svg --summary
+
+      # ========================================
+      # STEP 10: Commit and Push Changes
       # ========================================
       - name: Commit and push changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
+
           git add README.md CHANGELOG.md .gitignore requirements.txt .github/.analysis_marker .github/analysis_history.json 2>/dev/null || true
+          git add repo_health_metrics.json HEALTH_DASHBOARD.md 2>/dev/null || true
+          git add .github/loc_history.json LOC_TRENDS.md loc_charts/ 2>/dev/null || true
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -139,7 +172,7 @@ jobs:
           fi
       
       # ========================================
-      # STEP 8: Upload Artifacts
+      # STEP 11: Upload Artifacts
       # ========================================
       - name: Upload artifacts
         if: always()
@@ -151,10 +184,15 @@ jobs:
             .github/analysis_history.json
             coverage.json
             install.log
+            repo_health_metrics.json
+            HEALTH_DASHBOARD.md
+            .github/loc_history.json
+            LOC_TRENDS.md
+            loc_charts/
           retention-days: 30
       
       # ========================================
-      # STEP 9: Create Job Summary
+      # STEP 12: Create Job Summary
       # ========================================
       - name: Create job summary
         if: always()
