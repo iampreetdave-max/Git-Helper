@@ -46,7 +46,7 @@ st.markdown("""
         }
 
         .feature-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #f3f4f6 0%, #eff3f6 100%);
             padding: 30px;
             border-radius: 12px;
             margin: 15px 0;
@@ -90,7 +90,7 @@ st.markdown("""
         }
 
         .stat-card {
-            background: #f8f9fa;
+            background: #f3f4f6;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
@@ -216,7 +216,7 @@ with st.sidebar:
 
     st.markdown("""
     <div style="text-align: center; font-size: 0.85em; color: #666;">
-        <strong>Made with ❤️ for developers</strong><br>
+        <strong>Built for developers</strong><br>
         <a href="https://github.com/iampreetdave-max/Git-Helper" target="_blank">View on GitHub</a>
     </div>
     """, unsafe_allow_html=True)
@@ -312,8 +312,7 @@ if page == "🏠 Home":
     # Call to action
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("⚡ Get Started Now - Quick Setup", use_container_width=True, key="home_setup"):
-            st.switch_page("streamlit_app.py")
+        st.info("👉 Use the **Quick Setup** option in the sidebar to get started!")
 
 # ===== FEATURES PAGE =====
 elif page == "⚡ Features":
@@ -902,7 +901,7 @@ st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="footer">
     <strong>🤖 Git-Buddy</strong> — Enterprise-grade repository analysis, zero configuration<br><br>
-    <strong>Made with ❤️ for developers by developers</strong><br>
+    <strong>Built for developers by developers</strong><br>
     Innovated by <a href="https://github.com/iampreetdave-max">Preet Dave</a> | Powered by Claude AI<br><br>
     <strong>Connect:</strong><br>
     <a href="https://github.com/iampreetdave-max/Git-Helper">⭐ Star on GitHub</a> •
