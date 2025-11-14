@@ -1,0 +1,118 @@
+# CodeRabbit Configuration
+# This file configures automatic code review on pull requests
+
+# Language-specific settings
+language: python
+python:
+  version: "3.11"
+
+# Review settings
+review:
+  # Review all files by default
+  auto_review: true
+
+  # Prioritize reviewing
+  prioritize:
+    - ".github/scripts/"
+    - "streamlit_app.py"
+    - "requirements.txt"
+
+  # Skip reviewing certain files
+  skip_files:
+    - "*.md"
+    - "*.json"
+    - "*.png"
+    - ".env.example"
+    - ".gitignore"
+
+# CodeRabbit checks to perform
+checks:
+  # Code quality checks
+  code_quality: true
+  complexity: true
+  documentation: true
+  security: true
+
+  # Python-specific checks
+  syntax: true
+  imports: true
+  unused_variables: true
+  type_hints: true
+
+# Commenting preferences
+comments:
+  # Comment directly on the diff for issues
+  inline: true
+
+  # Create summary review comment
+  summary: true
+
+  # Tone and style
+  tone: "professional"
+  verbose: false
+
+  # Group similar issues
+  group_by_type: true
+
+# AI model settings
+ai:
+  # Use the latest AI model for reviews
+  model: "gpt-4"
+
+  # Review depth
+  depth: "detailed"
+
+  # Custom review instructions
+  instructions: |
+    Focus on:
+    1. Code quality and maintainability
+    2. Security vulnerabilities
+    3. Performance improvements
+    4. Best practices for Python
+    5. Error handling and edge cases
+
+    Be constructive and helpful in your feedback.
+    Prioritize significant issues over minor style preferences.
+
+# Workflow settings
+workflow:
+  # Always review PRs
+  review_pr: true
+
+  # Review on draft PRs too
+  review_draft: false
+
+  # Maximum files to review per PR
+  max_files: 20
+
+  # Timeout for review (in seconds)
+  timeout: 300
+
+# Severity levels for different issue types
+severity:
+  critical:
+    - security_vulnerabilities
+    - runtime_errors
+    - data_loss_risks
+
+  high:
+    - code_quality_issues
+    - performance_problems
+    - improper_error_handling
+
+  medium:
+    - documentation_gaps
+    - style_inconsistencies
+    - missing_type_hints
+
+  low:
+    - minor_improvements
+    - formatting_suggestions
+
+# Labels to apply based on review findings
+labels:
+  security_issues: "security 🔒"
+  code_quality: "code-quality 📊"
+  performance: "performance ⚡"
+  documentation: "docs 📚"
+  testing: "testing 🧪"
