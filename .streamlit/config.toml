@@ -1,0 +1,80 @@
+# Streamlit Configuration File
+# This file configures the appearance and behavior of the Streamlit app
+
+[theme]
+# Color scheme
+primaryColor = "#667eea"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+# Theme mode: light or dark
+base = "light"
+
+[client]
+# Hide "Made with Streamlit" footer
+showErrorDetails = true
+toolbarMode = "minimal"
+logger.level = "info"
+
+# Allow maximum width
+maxUploadSize = 200
+
+[server]
+# Port configuration (leave empty to use default 8501)
+# port = 8501
+
+# Server address
+# address = "localhost"
+
+# Enable CORS
+enableCORS = true
+
+# Enable X-Frame-Options header
+enableXsrfProtection = true
+
+# Maximum message size in MB
+maxMessageSize = 200
+
+# Run on localhost only (useful for local development)
+# headless = true
+
+# Development settings
+runOnSave = true
+
+# Enable WebSocket compression
+enableWebsocketCompression = true
+
+[logger]
+# Logging level: error, warning, info, debug
+level = "info"
+
+# File logging
+messageFormat = "%(asctime)s.%(msecs)03d [%(levelname)s] %(message)s"
+
+[client.toolbarMode]
+# Hide default toolbar
+# mode = "minimal"
+
+[browser]
+# Don't collect browser usage stats
+gatherUsageStats = false
+
+# Verify SSL certificates
+serverAddress = "localhost"
+
+[ui]
+# Hide hamburger menu
+hideTopBar = false
+
+# Hide "Manage app"
+hideSidebarNav = false
+
+[mapbox]
+# Mapbox token (if using maps)
+# token = ""
+
+[logger.web.util.streamlit_util]
+# Browser cache
+useReactVersion = "17"
