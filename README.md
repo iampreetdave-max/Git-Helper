@@ -24,6 +24,31 @@ Git-Helper is a comprehensive repository analysis system that automatically:
 - **Self-Healing**: Automatically creates missing configuration files
 - **Historical Trends**: Tracks metrics over time
 
+## 🚀 Quick Start - Zero-Code Setup
+
+Get started in **just a few steps - no code editing required!**
+
+### Fastest Way (GitHub Actions - Fully Automatic)
+1. Copy this repo to your GitHub account
+2. Enable GitHub Actions in Settings
+3. **Done!** ✅ Analysis runs automatically daily
+
+📖 **[See detailed setup guide →](ZERO_CODE_SETUP.md)**
+
+### Quick Local Setup
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Copy config (optional)
+cp .env.example .env
+
+# 3. Run analysis
+python .github/scripts/analyzer.py
+```
+
+---
+
 ## Setup
 
 ### Prerequisites

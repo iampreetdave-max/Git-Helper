@@ -1,0 +1,23 @@
+# Git-Helper Repository Analysis Tool
+# Zero-Code Setup - Install all required dependencies
+
+# Code Quality Analysis
+pylint>=2.17.0
+flake8>=6.0.0
+radon>=6.0.0
+
+# Testing & Coverage
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Security Scanning
+bandit>=1.7.5
+pip-audit>=2.6.0
+safety>=2.3.5
+
+# Visualization & Data
+matplotlib>=3.8.0
+numpy>=1.24.0
+
+# JSON & Data Processing
+requests>=2.31.0
