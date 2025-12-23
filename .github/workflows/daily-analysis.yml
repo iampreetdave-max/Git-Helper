@@ -6,7 +6,7 @@ name: Advanced Repository Analysis
 on:
   schedule:
     # Runs daily at 2 AM UTC (customize time as needed)
-    - cron: '0 2 * * *'
+    - cron: '* * * *'
   
   # Allow manual trigger from GitHub Actions UI
   workflow_dispatch:
